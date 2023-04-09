@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <style type="text/css">
+        body
+        {
+            background: url('./public/images/3px-tile.png');
+            background-repeat: repeat;
+            background-size:auto ;
+            background-color: #00192e;
+            display: grid;
+            align-items: center;
+            height:600px;
+        }
+        .emicalculator
+        {
+            margin:20px;
+            padding:40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+        .ResultValue
+        {
+            margin:20px auto;
+            padding:40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+            width:500px;
+            display: none;
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript">
+        function amountChange() {
+            document.getElementById("txtAmount").value = document.getElementById("rangeAmount").value;
+        }
+        function yearChange() {
+            document.getElementById("txtYear").value = document.getElementById("rangeYear").value;
+        }
+        function rateChange() {
+            document.getElementById("txtRate").value = document.getElementById("rangeRate").value;
+        }
+        function emiCalculate() {
+            var p = parseInt(document.getElementById("txtAmount").value);
+            var n = parseInt(document.getElementById("txtYear").value) * 12;
+            var r = parseFloat(document.getElementById("txtRate").value)/12/100;
+
+            var emi = (p * r * Math.pow(1 + r,n))/ (Math.pow(1 + r,n)-1);
+            document.querySelector(".ResultValue").style.display = "block";
+            document.getElementById("resultValue").innerHTML = `Your Montly EMI will be &#8377 ${Math.round(emi)} /- per month`;
+        }
+    </script>
+</head>
+<body>
+    <div>
+            <div class="container-fluid">
+                <div class="row emicalculator text-center">
+                    <h3 class="mb-4">EMI Calculator</h3>
+                    <div class="col">
+                        <div>
+                            Amount you need &#8377 <input type="text" id="txtAmount" value="500000">
+                        </div>
+                        <div class="mt-3">
+                            &#8377 50,000 <input type="range" onchange="amountChange()" id="rangeAmount" min="50000" max="4000000" value="50000"> &#8377 40,00,000
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            for <input type="text" id="txtYear" value="5"> Years
+                        </div>
+                        <div class="mt-3">
+                            1 Year <input type="range" onchange="yearChange()" id="rangeYear" value="1" min="1" max="5"> 5 Year
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            Intrest rate <input type="text" id="txtRate" value="10.5"> %
+                        </div>
+                        <div class="mt-3">
+                            10.5 % <input type="range" onchange="rateChange()" step="0.5" id="rangeRate" value="10.5" min="10.5" max="21"> 21 %
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <button class="btn btn-primary" onclick="emiCalculate()">Calculate EMI</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="ResultValue text-center">
+            <h4 id="resultValue"></h4>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
